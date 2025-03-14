@@ -1,54 +1,75 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include "hardware/pwm.h"
+// Adapted from Paulo Costa's PCA9685 example for Raspberry Pi Pico
+// Using Platform.IO with Arduino framework
+// Controls servo to rotate 90 degrees
 
-// Pin definition (using GPIO 0)
-#define SERVO_PIN 0
+#include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_PWMServoDriver.h>
 
-// Servo pulse width constants (in microseconds)
-#define SERVO_MIN_PULSE 500   // 0 degrees
-#define SERVO_MAX_PULSE 2500  // 180 degrees
-#define SERVO_FREQ 50         // 50Hz = 20ms period
+// PCA9685 default I2C address
+Adafruit_PWMServoDriver ServoDriver = Adafruit_PWMServoDriver(0x40);
 
-void set_servo_angle(uint pin, float angle) {
-    // Ensure angle is between 0 and 180
-    if (angle < 0) angle = 0;
-    if (angle > 180) angle = 180;
+#define SERVO_FREQ 50  // Analog servos typically run at 50Hz
+#define SERVO_NUM 0    // Using servo channel 0
 
-    // Calculate pulse width for given angle
-    uint32_t pulse_width = SERVO_MIN_PULSE + ((SERVO_MAX_PULSE - SERVO_MIN_PULSE) * angle) / 180.0;
-    
-    // Get PWM slice and channel for the pin
-    uint slice_num = pwm_gpio_to_slice_num(pin);
-    uint channel = pwm_gpio_to_channel(pin);
+// Pulse width constants for servo (adjusted for typical 500-2500µs range)
+#define SERVO_MIN 102  // ~500µs at 4096 resolution (0 degrees)
+#define SERVO_MAX 512  // ~2500µs at 4096 resolution (180 degrees)
+#define SERVO_90  307  // ~1500µs at 4096 resolution (90 degrees)
 
-    // Set frequency (20ms period = 50Hz)
-    pwm_set_clkdiv(slice_num, 125.0f);  // 125MHz / 125 = 1MHz clock
-    pwm_set_wrap(slice_num, 20000);     // 1MHz / 20000 = 50Hz
-    
-    // Set duty cycle
-    pwm_set_chan_level(slice_num, channel, pulse_width);
-    
-    // Enable PWM
-    pwm_set_enabled(slice_num, true);
+unsigned long interval = 2000;  // 2-second interval between movements
+unsigned long last_cycle;
+
+// Function to detect PCA9685 presence
+int find_ServoDriver(int addr) {
+    Wire.beginTransmission(addr);
+    Wire.write(0x00);  // MODE1 register
+    Wire.write(0x80);  // MODE1_RESTART
+    return !Wire.endTransmission();
 }
 
-int main() {
-    // Initialize chosen pin as PWM
-    gpio_set_function(SERVO_PIN, GPIO_FUNC_PWM);
+void setup() {
+    // Initialize serial communication
+    Serial.begin(115200);
+    while (!Serial) delay(10);  // Wait for serial to connect
 
-    // Initialize stdio
-    stdio_init_all();
+    // Initialize I2C (using GPIO 8 for SDA, GPIO 9 for SCL, which is default for Wire on I2C0)
+    Wire.begin();  // No need for setSDA/setSCL
 
-    while (true) {
-        printf("Moving to 0 degrees\n");
-        set_servo_angle(SERVO_PIN, 0);
-        sleep_ms(2000);  // Wait 2 seconds
-
-        printf("Moving to 90 degrees\n");
-        set_servo_angle(SERVO_PIN, 90);
-        sleep_ms(2000);  // Wait 2 seconds
+    // Check for PCA9685 connection
+    while (!find_ServoDriver(0x40)) {
+        Serial.println("No PCA9685 found ... check your connections");
+        delay(200);
     }
 
-    return 0;
+    Serial.println("Found PCA9685");
+
+    // Initialize PCA9685
+    ServoDriver.begin();
+    
+    // Set oscillator frequency (adjust if needed based on your chip)
+    ServoDriver.setOscillatorFrequency(27000000);  // Typical value, may need calibration
+    ServoDriver.setPWMFreq(SERVO_FREQ);  // Set to 50Hz
+    delay(10);
+
+    // Initial position (0 degrees)
+    ServoDriver.setPWM(SERVO_NUM, 0, SERVO_MIN);
+}
+
+void loop() {
+    unsigned long now = millis();
+    
+    if (now - last_cycle > interval) {
+        last_cycle = now;
+
+        // Move to 0 degrees
+        Serial.println("Moving to 0 degrees");
+        ServoDriver.setPWM(SERVO_NUM, 0, SERVO_MIN);
+        delay(2000);  // Wait 2 seconds
+
+        // Move to 90 degrees
+        Serial.println("Moving to 90 degrees");
+        ServoDriver.setPWM(SERVO_NUM, 0, SERVO_90);
+        delay(2000);  // Wait 2 seconds
+    }
 }
