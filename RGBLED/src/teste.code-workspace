@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../../cygwin64/home/Arthur Menes/modbusTCP"
+		},
+		{
+			"name": "LAB1",
+			"path": "../../../../Documents/PlatformIO/Projects/LAB1"
+		},
+		{
+			"name": "RGBLED",
+			"path": ".."
+		},
+		{
+			"name": "LAB0_3-main",
+			"path": "../../../LAB0_3-main (1)/LAB0_3-main"
+		}
+	],
+	"settings": {
+		"files.associations": {
+			"stdio.h": "c",
+			"stdlib.h": "c"
+		}
+	}
+}
