@@ -3,21 +3,32 @@ import random
 
 app = Flask(__name__)
 
-# Sample endpoint to send dynamic metric data (for testing dynamic updates)
-@app.route('/api/parking')
+# --- Sample Data for 6 Parking Slots ---
+# For demonstration, each refresh randomly assigns True/False to a slot
+# meaning "True" = slot is free, "False" = slot is occupied
+@app.route('/api/parking_data')
 def parking_data():
-    # Generate sample data: number of free parking slots out of 100
-    free_slots = random.randint(0, 100)
-    return jsonify({
-        'free_slots': free_slots,
-        'total_slots': 100
-    })
+    slots = [
+        {"slot_id": 1, "is_free": bool(random.getrandbits(1))},
+        {"slot_id": 2, "is_free": bool(random.getrandbits(1))},
+        {"slot_id": 3, "is_free": bool(random.getrandbits(1))},
+        {"slot_id": 4, "is_free": bool(random.getrandbits(1))},
+        {"slot_id": 5, "is_free": bool(random.getrandbits(1))},
+        {"slot_id": 6, "is_free": bool(random.getrandbits(1))},
+    ]
+    return jsonify(slots)
 
-# Main route serving our dashboard page
+# --- MAIN PAGE: Project Description ---
 @app.route('/')
 def index():
     return render_template('index.html')
 
+# --- DASHBOARD PAGE: Visualization, metrics, etc. ---
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 if __name__ == '__main__':
-    # Run on localhost for development; later change host to '0.0.0.0' for Pi deployment.
+    # For development on your PC, you can keep '127.0.0.1'.
+    # For Raspberry Pi deployment, consider '0.0.0.0' so it's accessible on your local network.
     app.run(debug=True, host='127.0.0.1', port=5000)

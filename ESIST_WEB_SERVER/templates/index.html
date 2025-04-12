@@ -1,134 +1,214 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smart City Dashboard</title>
-  <!-- Bootstrap CSS CDN -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <!-- Chart.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <meta charset="UTF-8" />
+  <title>Smart City - Projeto de Maquete Urbana Inteligente</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <!-- Google Fonts for improved typography -->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
   <style>
     body {
-      padding-top: 20px;
+      font-family: 'Roboto', sans-serif;
       background-color: #f8f9fa;
+      margin: 0;
+      padding: 0;
+    }
+    /* Navigation Styling */
+    .navbar-brand img {
+      max-height: 80px; /* Increased from 50px to 80px */
+    }
+    .nav-link.active {
+      font-weight: bold;
+      color: #007bff !important;
+    }
+    /* Hero Section */
+    .hero {
+      background: url('/static/images/smart_city_background.png') no-repeat center center;
+      background-size: cover;
+      padding: 120px 0;
+      position: relative;
+      color: #fff;
+      text-align: center;
+    }
+    .hero::before {
+      content: '';
+      background: rgba(0, 0, 0, 0.6);
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    .hero h1 {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    /* Section Styling */
+    .section {
+      padding: 60px 15px;
+      background-color: #fff;
+    }
+    .section:not(:last-child) {
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .section-title {
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
     }
     .card {
-      margin: 15px 0;
-    }
-    #dashboard-header {
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
       margin-bottom: 30px;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    .cta-btn {
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
 
-<div class="container">
-  <!-- Header -->
-  <div id="dashboard-header" class="text-center">
-    <h1>Smart City Dashboard</h1>
-    <p>Monitor metrics from our 3D miniature smart city project.</p>
+<!-- Navigation Bar -->
+<nav class="navbar navbar-expand-md navbar-light bg-light">
+  <a class="navbar-brand" href="/">
+    <img src="/static/images/feup_logo.png" alt="FEUP Logo">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon">☰</span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+      <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+    </ul>
   </div>
+</nav>
 
-  <!-- Metrics Section -->
-  <div class="row">
-    <!-- Free Parking Slots Metric -->
-    <div class="col-md-4">
-      <div class="card text-white bg-success">
-        <div class="card-body">
-          <h4 class="card-title">Free Parking Slots</h4>
-          <p class="card-text" id="parking-metric">Loading...</p>
+<!-- Hero Section -->
+<section class="hero">
+  <div class="hero-content container">
+    <h1>Bem-vindo ao Projeto da Equipa 1</h1>
+    <p>Uma maquete interativa e modular que demonstra soluções urbanas inteligentes.</p>
+    <a href="/dashboard" class="btn btn-primary btn-lg">Acessar Dashboard</a>
+  </div>
+</section>
+
+<!-- Main Content Section -->
+<section class="section">
+  <div class="container">
+    <!-- Center only the heading -->
+    <div class="text-center">
+      <h2 class="section-title">Descrição do Projeto</h2>
+    </div>
+
+    <!-- Justify the paragraph -->
+    <p class="lead text-justify">
+      Desenvolvido pela Equipa 1, no âmbito da unidade curricular de Engenharia de Sistemas, com o orientador Professor Daniel Gouveia Costa, este projeto visa criar uma maquete em escala (1:43) que simula o funcionamento de uma cidade inteligente. Através do uso de microcontroladores, comunicação via WiFi e algoritmos de visão por computador, o nosso modelo pretende apresentar uma proposta de controlo e gestão de tráfego, estacionamento, iluminação e cenários de emergência de forma dinâmica e integrada.
+    </p>
+
+    <!-- Detailed Project Information -->
+    <div class="row">
+      <!-- Objetivos -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4>Objetivos</h4>
+            <p>
+              O projeto tem como finalidade desenvolver uma ferramenta educacional e demonstrativa que:
+            </p>
+            <ul>
+              <li>Integre sistemas de controle de tráfego dinâmico;</li>
+              <li>Monitore a ocupação de estacionamento com sensores;</li>
+              <li>Adapte a iluminação pública conforme a presença de veículos;</li>
+              <li>Detecte veículos de emergência em tempo real.</li>
+            </ul>
+            <p>
+              Inspirado por estudos de arquitetura funcional e análises de mercado, este sistema é projetado para ser desmontável, portátil e facilmente implementável em ambientes académicos e feiras, com foco principal na Mostra U.Porto.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arquitetura e Funcionalidades -->
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4>Arquitetura & Funcionalidades</h4>
+            <p>
+              Com base na análise funcional e no conceito do sistema:
+            </p>
+            <ul>
+              <li>
+                <strong>Centro de Processamento:</strong>
+                A utilização do microcontrolador Raspberry Pi 5 permite processamento de imagens e execução de algoritmos de aprendizagem computacional para detecção de veículos e situações de emergência em pontos críticos do modelo da cidade inteligente.
+              </li>
+              <li>
+                <strong>Comunicação:</strong>
+                A comunicação entre dispositivos de controlo é feita via WiFi com recurso ao protocolo de comunicação MQTT. Esta arquitetura possibilita a troca rápida de informações entre subsistemas (Raspberry Pi 5, Raspberry Pi 3B e Raspberry Pi Pico).
+              </li>
+              <li>
+                <strong>Sensoriamento e Ação:</strong>
+                A deteção de veículos é também feita com o auxílio de sensores ultrassónicos, para a iluminação inteligente, e sensores laser, para indicação de disponibilidade de estacionamento.
+              </li>
+              <li>
+                <strong>Integração Modular:</strong>
+                O design modular e desmontável permite o transporte facilitado para exibições em feiras e instituições de ensino.
+              </li>
+            </ul>
+            <p>
+              Estes componentes foram selecionados com base em estudos de mercado e análises comparativas que priorizam desempenho, custo-eficiência e sustentabilidade.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    
-    <!-- You can add more metric cards here -->
-    <div class="col-md-4">
-      <div class="card text-white bg-info">
-        <div class="card-body">
-          <h4 class="card-title">Another Metric</h4>
-          <p class="card-text">Data Placeholder</p>
+
+    <!-- Market Survey and Research Insights -->
+    <div class="row mt-5">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h4>Insights de Mercado e Pesquisa</h4>
+            <p>
+              A nossa pesquisa de mercado evidenciou a viabilidade do uso de soluções integradas para a construção de cidades inteligentes. Os principais pontos desta análise incluem:
+            </p>
+            <ul>
+              <li><strong>Seleção de Materiais:</strong> O aglomerado foi escolhido pela sua resistência e baixo custo, ideal para a estrutura da maquete.</li>
+              <li><strong>Plataformas de Processamento:</strong> A evolução dos microcontroladores Raspberry Pi, especialmente a versão 5, garante a capacidade de execução dos algoritmos de visão por computador em tempo real.</li>
+              <li><strong>Tecnologias de Comunicação:</strong> Protocolos leves, como MQTT, oferecem a robustez necessária para a integração de diversos módulos do sistema.</li>
+            </ul>
+            <p>
+              Estes insights corroboram o projeto, demonstrando que as nossas escolhas técnicas e de materiais estão alinhadas com as melhores práticas e tendências de mercado atuais.
+            </p>
+          </div>
         </div>
       </div>
     </div>
-    
-    <div class="col-md-4">
-      <div class="card text-white bg-warning">
-        <div class="card-body">
-          <h4 class="card-title">Additional Info</h4>
-          <p class="card-text">Data Placeholder</p>
-        </div>
-      </div>
+
+    <!-- Call-to-Action -->
+    <div class="text-center cta-btn">
+      <a href="/dashboard" class="btn btn-outline-primary btn-lg">Explore o Dashboard Interativo</a>
     </div>
   </div>
+</section>
 
-  <!-- Visualization Section -->
-  <div class="row">
-    <div class="col-md-12">
-      <div class="card">
-        <div class="card-body">
-          <canvas id="parkingChart"></canvas>
-        </div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- jQuery and Bootstrap JS CDN -->
+<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-<!-- Dashboard Script -->
-<script>
-// Function to fetch metric data and update the page
-function fetchParkingData() {
-  fetch('/api/parking')
-    .then(response => response.json())
-    .then(data => {
-      // Update the metric card text
-      document.getElementById('parking-metric').textContent = data.free_slots + ' / ' + data.total_slots;
-      
-      // Update the chart with new data
-      updateChart(data.free_slots, data.total_slots);
-    })
-    .catch(error => console.error('Error fetching parking data:', error));
-}
-
-// Setup Chart.js chart
-let ctx = document.getElementById('parkingChart').getContext('2d');
-let parkingChart = new Chart(ctx, {
-    type: 'doughnut',
-    data: {
-        labels: ['Occupied', 'Free'],
-        datasets: [{
-            data: [0, 100],  // Default values
-            backgroundColor: ['#dc3545', '#28a745'],
-        }]
-    },
-    options: {
-        responsive: true,
-        title: {
-            display: true,
-            text: 'Parking Occupancy'
-        }
-    }
-});
-
-// Function to update the chart with the latest data
-function updateChart(freeSlots, totalSlots) {
-  let occupiedSlots = totalSlots - freeSlots;
-  parkingChart.data.datasets[0].data = [occupiedSlots, freeSlots];
-  parkingChart.update();
-}
-
-// Refresh data every 5 seconds
-setInterval(fetchParkingData, 5000);
-
-// Initial load
-fetchParkingData();
-</script>
 
 </body>
 </html>
