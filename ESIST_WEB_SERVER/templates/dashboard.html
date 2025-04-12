@@ -15,6 +15,9 @@
     }
     /* Navigation Styling */
     .navbar-brand { font-weight: 700; }
+    .navbar-brand img {
+      max-height: 80px; /* Increased from 50px to 80px */
+    }
     .nav-link.active {
       font-weight: bold;
       color: #007bff !important;
@@ -102,7 +105,9 @@
 <body>
   <!-- Navigation Bar -->
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand" href="/">Smart City Project</a>
+    <a class="navbar-brand" href="/">
+        <img src="/static/images/feup_logo.png" alt="FEUP Logo">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" 
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon">☰</span>
