@@ -6,77 +6,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
   <!-- Google Fonts for improved typography -->
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa;
-      margin: 0;
-      padding: 0;
-    }
-    /* Navigation Styling */
-    .navbar-brand img {
-      max-height: 80px; /* Increased from 50px to 80px */
-    }
-    .nav-link.active {
-      font-weight: bold;
-      color: #007bff !important;
-    }
-    /* Hero Section */
-    .hero {
-      background: url('/static/images/smart_city_background.png') no-repeat center center;
-      background-size: cover;
-      padding: 120px 0;
-      position: relative;
-      color: #fff;
-      text-align: center;
-    }
-    .hero::before {
-      content: '';
-      background: rgba(0, 0, 0, 0.6);
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 1;
-    }
-    .hero h1 {
-      font-size: 3.5rem;
-      margin-bottom: 20px;
-    }
-    .hero p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-    }
-    /* Section Styling */
-    .section {
-      padding: 60px 15px;
-      background-color: #fff;
-    }
-    .section:not(:last-child) {
-      border-bottom: 1px solid #e0e0e0;
-    }
-    .section-title {
-      font-weight: 700;
-      margin-bottom: 30px;
-      text-align: center;
-    }
-    .card {
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-      margin-bottom: 30px;
-    }
-    .card-body {
-      padding: 20px;
-    }
-    .cta-btn {
-      margin-top: 20px;
-    }
-  </style>
+  <!-- External CSS -->
+  <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
 
@@ -93,6 +24,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
       <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
+      <li class="nav-item"><a class="nav-link" href="/team">Equipa</a></li>
     </ul>
   </div>
 </nav>
@@ -109,17 +41,12 @@
 <!-- Main Content Section -->
 <section class="section">
   <div class="container">
-    <!-- Center only the heading -->
     <div class="text-center">
       <h2 class="section-title">Descrição do Projeto</h2>
     </div>
-
-    <!-- Justify the paragraph -->
     <p class="lead text-justify">
       Desenvolvido pela Equipa 1, no âmbito da unidade curricular de Engenharia de Sistemas, com o orientador Professor Daniel Gouveia Costa, este projeto visa criar uma maquete em escala (1:43) que simula o funcionamento de uma cidade inteligente. Através do uso de microcontroladores, comunicação via WiFi e algoritmos de visão por computador, o nosso modelo pretende apresentar uma proposta de controlo e gestão de tráfego, estacionamento, iluminação e cenários de emergência de forma dinâmica e integrada.
     </p>
-
-    <!-- Detailed Project Information -->
     <div class="row">
       <!-- Objetivos -->
       <div class="col-md-6">
@@ -141,7 +68,6 @@
           </div>
         </div>
       </div>
-
       <!-- Arquitetura e Funcionalidades -->
       <div class="col-md-6">
         <div class="card">
@@ -157,11 +83,11 @@
               </li>
               <li>
                 <strong>Comunicação:</strong>
-                A comunicação entre dispositivos de controlo é feita via WiFi com recurso ao protocolo de comunicação MQTT. Esta arquitetura possibilita a troca rápida de informações entre subsistemas (Raspberry Pi 5, Raspberry Pi 3B e Raspberry Pi Pico).
+                A comunicação entre dispositivos de controlo é feita via WiFi com recurso ao protocolo de comunicação MQTT, possibilitando a troca rápida de informações entre subsistemas (Raspberry Pi 5, Raspberry Pi 3B e Raspberry Pi Pico).
               </li>
               <li>
                 <strong>Sensoriamento e Ação:</strong>
-                A deteção de veículos é também feita com o auxílio de sensores ultrassónicos, para a iluminação inteligente, e sensores laser, para indicação de disponibilidade de estacionamento.
+                A deteção de veículos também é realizada com o auxílio de sensores ultrassónicos, para a iluminação inteligente, e sensores laser, para indicação de disponibilidade de estacionamento.
               </li>
               <li>
                 <strong>Integração Modular:</strong>
@@ -175,8 +101,7 @@
         </div>
       </div>
     </div>
-
-    <!-- Market Survey and Research Insights -->
+    <!-- Insights de Mercado -->
     <div class="row mt-5">
       <div class="col-12">
         <div class="card">
@@ -197,18 +122,14 @@
         </div>
       </div>
     </div>
-
-    <!-- Call-to-Action -->
     <div class="text-center cta-btn">
       <a href="/dashboard" class="btn btn-outline-primary btn-lg">Explore o Dashboard Interativo</a>
     </div>
   </div>
 </section>
 
-<!-- Scripts -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 </body>
 </html>

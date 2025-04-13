@@ -1,0 +1,140 @@
+/* Global Styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding-top: 70px; /* Ensures fixed navbar doesn't cover content */
+  }
+  
+  /* Navigation */
+  .navbar {
+    position: fixed;    /* Fix the navbar at the top */
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+  }
+  .navbar-brand img {
+    max-height: 80px;
+  }
+  .nav-link.active {
+    font-weight: bold;
+    color: #007bff !important;
+  }
+  
+  /* Hero Section */
+  .hero {
+    background: url('/static/images/smart_city_background.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll; /* Background remains fixed during scroll */
+    height: 500px; /* Fixed height for consistent hero size */
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin-top: 50px; /* Adjust if needed for fixed navbar */
+  }
+  .hero::before {
+    content: '';
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+  }
+  .hero-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+  }
+  .hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+  }
+  .hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  
+  
+  /* Section Styling */
+  .section {
+    padding: 60px 15px;
+    background-color: #fff;
+  }
+  .section:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+  }
+  .section-title {
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  /* Cards */
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+  }
+  .card-body {
+    padding: 20px;
+  }
+  .cta-btn {
+    margin-top: 20px;
+  }
+  
+  /* Dashboard Specific */
+  .slot-box {
+    width: 90px;
+    height: 90px;
+    border-radius: 10px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: transform 0.2s ease;
+  }
+  .slot-box:hover {
+    transform: scale(1.05);
+  }
+  .slot-free {
+    background-color: #28a745;
+  }
+  .slot-occupied {
+    background-color: #dc3545;
+  }
+  
+  /* Team Page Specific Styles */
+  .team-member {
+    margin-bottom: 30px;
+  }
+  .team-member img {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+  .member-info h5 {
+    margin-top: 15px;
+    font-weight: 700;
+  }
+  .member-info p {
+    color: #666;
+  }
+  
+  /* Additional adjustments for the team page hero section (if needed) */
+  .hero.team-hero {
+    background: url('/static/images/team_background.jpg') no-repeat center center;
+    background-size: cover;
+    padding: 100px 0;
+  }
+  
