@@ -33,6 +33,11 @@ def dashboard():
 def page_team():
     return render_template('page_team.html')
 
+# --- TRAFFIC PAGE: Traffic metrics ---
+@app.route('/traffic')
+def page_traffic():
+    return render_template('page_traffic.html')
+
 if __name__ == '__main__':
     # For development on your PC, you can keep '127.0.0.1'.
     # For Raspberry Pi deployment, consider '0.0.0.0' so it's accessible on your local network.
