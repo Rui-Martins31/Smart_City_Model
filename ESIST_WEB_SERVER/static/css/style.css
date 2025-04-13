@@ -2,27 +2,28 @@
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f8f9fa;
+    color: #222; /* default text color for bright mode */
     margin: 0;
     padding-top: 70px; /* Ensures fixed navbar doesn't cover content */
-  }
-  
-  /* Navigation */
-  .navbar {
+}
+
+/* Navigation */
+.navbar {
     position: fixed;    /* Fix the navbar at the top */
     top: 0;
     width: 100%;
     z-index: 9999;
-  }
-  .navbar-brand img {
+}
+.navbar-brand img {
     max-height: 80px;
-  }
-  .nav-link.active {
+}
+.nav-link.active {
     font-weight: bold;
     color: #007bff !important;
-  }
-  
-  /* Hero Section */
-  .hero {
+}
+
+/* Hero Section */
+.hero {
     background: url('/static/images/smart_city_background.png') no-repeat center center;
     background-size: cover;
     background-attachment: scroll; /* Background remains fixed during scroll */
@@ -31,8 +32,8 @@ body {
     color: #fff;
     text-align: center;
     margin-top: 50px; /* Adjust if needed for fixed navbar */
-  }
-  .hero::before {
+}
+.hero::before {
     content: '';
     background: rgba(0, 0, 0, 0.6);
     position: absolute;
@@ -41,56 +42,54 @@ body {
     left: 0;
     right: 0;
     z-index: 1;
-  }
-  .hero-content {
+}
+.hero-content {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
     width: 100%;
-  }
-  .hero h1 {
+}
+.hero h1 {
     font-size: 3.5rem;
     margin-bottom: 20px;
-  }
-  .hero p {
+}
+.hero p {
     font-size: 1.2rem;
     margin-bottom: 30px;
-  }
-  
-  
-  
-  /* Section Styling */
-  .section {
+}
+
+/* Section Styling */
+.section {
     padding: 60px 15px;
     background-color: #fff;
-  }
-  .section:not(:last-child) {
+}
+.section:not(:last-child) {
     border-bottom: 1px solid #e0e0e0;
-  }
-  .section-title {
+}
+.section-title {
     font-weight: 700;
     margin-bottom: 30px;
     text-align: center;
-  }
-  
-  /* Cards */
-  .card {
+}
+
+/* Cards */
+.card {
     border: none;
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
     margin-bottom: 30px;
-  }
-  .card-body {
+}
+.card-body {
     padding: 20px;
-  }
-  .cta-btn {
+}
+.cta-btn {
     margin-top: 20px;
-  }
-  
-  /* Dashboard Specific */
-  .slot-box {
+}
+
+/* Dashboard Specific */
+.slot-box {
     width: 90px;
     height: 90px;
     border-radius: 10px;
@@ -102,67 +101,137 @@ body {
     font-weight: 600;
     font-size: 1rem;
     transition: transform 0.2s ease;
-  }
-  .slot-box:hover {
+}
+.slot-box:hover {
     transform: scale(1.05);
-  }
-  .slot-free {
+}
+.slot-free {
     background-color: #28a745;
-  }
-  .slot-occupied {
+}
+.slot-occupied {
     background-color: #dc3545;
-  }
-  
-  /* Team Page Specific Styles */
-  .team-member {
+}
+
+/* Team Page Specific Styles */
+.team-member {
     margin-bottom: 30px;
-  }
-  .team-member img {
+}
+.team-member img {
     width: 100%;
     height: auto;
     border-radius: 50%;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-  .member-info h5 {
+}
+.member-info h5 {
     margin-top: 15px;
     font-weight: 700;
-  }
-  .member-info p {
+}
+.member-info p {
     color: #666;
-  }
-  
-  /* Additional adjustments for the team page hero section (if needed) */
-  .hero.team-hero {
+}
+
+/* Additional adjustments for the team page hero section (if needed) */
+.hero.team-hero {
     background: url('/static/images/team_background.jpg') no-repeat center center;
     background-size: cover;
     padding: 100px 0;
-  }
-  
-  /* Footer */
-  .footer {
+}
+
+/* Footer */
+.footer {
     background-color: #343a40;
     color: #ccc;
     padding: 40px 0;
     margin-top: 40px;
-  }
-  .footer a {
+}
+.footer a {
     color: #ccc;
     text-decoration: none;
-  }
-  .footer a:hover {
+}
+.footer a:hover {
     color: #fff;
     text-decoration: underline;
-  }
-  .footer h5 {
+}
+.footer h5 {
     color: #fff;
     margin-bottom: 20px;
-  }
-  .footer-bottom {
+}
+.footer-bottom {
     border-top: 1px solid #555;
     padding-top: 20px;
     font-size: 0.9rem;
-  }
-  .justified-text {
+}
+.justified-text {
     text-align: justify;
+}
+
+/* Dark Mode Overrides */
+@media (prefers-color-scheme: dark) {
+  /* Global Dark Mode */
+  body {
+    background-color: #343a40;
+    color: #ccc;
   }
-  
+
+  /* Navigation */
+  .navbar, .footer {
+    background-color: #222;
+  }
+  .nav-link.active {
+    color: #fff !important;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: url('/static/images/smart_city_background.png') no-repeat center center;
+    background-size: cover;
+    background-attachment: scroll;
+    height: 500px;
+    position: relative;
+    color: #fff;
+    text-align: center;
+    margin-top: 50px;
+  }
+  .hero::before {
+    background: rgba(0, 0, 0, 0.7);
+  }
+
+  /* Section Styling */
+  .section {
+    background-color: #444;
+    border-color: #555;
+  }
+  .section-title {
+    color: #fff;
+  }
+
+  /* Cards */
+  .card {
+    background-color: #555;
+    color: #ccc;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+  }
+  .card-body {
+    color: #ccc;
+  }
+
+  /* Dashboard Specific */
+  .slot-box {
+    color: #fff;
+  }
+
+  /* Footer */
+  .footer {
+    background-color: #222;
+    color: #aaa;
+  }
+  .footer a {
+    color: #aaa;
+  }
+  .footer a:hover {
+    color: #fff;
+  }
+  .footer h5 {
+    color: #fff;
+  }
+}
