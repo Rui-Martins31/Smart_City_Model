@@ -1,0 +1,8 @@
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#define WIFI_SSID "MyWiFi"
+#define WIFI_PASSWORD "MySecretPassword"
+#define API_KEY "abc123xyz"
+
+#endif

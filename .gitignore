@@ -2,3 +2,6 @@
 venv/
 ENV/
 env/
+
+# Configuration files
+config.h
