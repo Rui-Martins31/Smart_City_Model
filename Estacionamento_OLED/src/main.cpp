@@ -43,7 +43,7 @@ const char* htmlPage = R"rawliteral(
 <html lang="pt">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Status Estacionamento</title>
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="1">
 <style>
   body { font-family: Arial, sans-serif; background:#f4f4f4;
          display:flex;justify-content:center;align-items:center;
@@ -59,7 +59,7 @@ const char* htmlPage = R"rawliteral(
   <div class="box">
     <h1>Status Estacionamento</h1>
     <div class="slots">%SLOTS% vagas livres</div>
-    <div class="foot">Atualiza a cada 5 s</div>
+    <div class="foot">Atualiza a cada 1 s</div>
   </div>
 </body>
 </html>
