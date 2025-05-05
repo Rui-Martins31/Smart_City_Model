@@ -1,237 +1,257 @@
 /* Global Styles */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-    color: #222; /* default text color for bright mode */
-    margin: 0;
-    padding-top: 70px; /* Ensures fixed navbar doesn't cover content */
+  font-family: 'Roboto', sans-serif;
+  background-color: #f8f9fa;
+  color: #222; /* default text color for bright mode */
+  margin: 0;
+  padding-top: 70px; /* Ensures fixed navbar doesn't cover content */
 }
 
 /* Navigation */
 .navbar {
-    position: fixed;    /* Fix the navbar at the top */
-    top: 0;
-    width: 100%;
-    z-index: 9999;
+  position: fixed;    /* Fix the navbar at the top */
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+  background-color: #ffffff; /* Light mode background */
 }
 .navbar-brand img {
-    max-height: 80px;
+  max-height: 80px;
+}
+.navbar-brand .logo-light {
+  display: inline-block; /* Hide light mode logo in dark mode */
+}
+.navbar-brand .logo-dark {
+  display: none; /* Show dark mode logo in dark mode */
+}
+.nav-link {
+  color: #222;
 }
 .nav-link.active {
-    font-weight: bold;
-    color: #007bff !important;
+  font-weight: bold;
+  color: #007bff !important;
 }
 
 /* Hero Section */
 .hero {
-    background: url('/static/images/smart_city_background.png') no-repeat center center;
-    background-size: cover;
-    background-attachment: scroll; /* Background remains fixed during scroll */
-    height: 500px; /* Fixed height for consistent hero size */
-    position: relative;
-    color: #fff;
-    text-align: center;
-    margin-top: 50px; /* Adjust if needed for fixed navbar */
+  background: url('/static/images/smart_city_background.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll; /* Background remains fixed during scroll */
+  height: 500px; /* Fixed height for consistent hero size */
+  position: relative;
+  color: #fff;
+  text-align: center;
+  margin-top: 50px; /* Adjust if needed for fixed navbar */
 }
 .hero::before {
-    content: '';
-    background: rgba(0, 0, 0, 0.6);
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 1;
+  content: '';
+  background: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
 }
 .hero-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 2;
-    width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  width: 100%;
 }
 .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
+  font-size: 3.5rem;
+  margin-bottom: 20px;
 }
 .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
 }
 
 /* Section Styling */
 .section {
-    padding: 60px 15px;
-    background-color: #fff;
+  padding: 60px 15px;
+  background-color: #fff;
 }
 .section:not(:last-child) {
-    border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
 }
 .section-title {
-    font-weight: 700;
-    margin-bottom: 30px;
-    text-align: center;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-align: center;
 }
 
 /* Cards */
 .card {
-    border: none;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    margin-bottom: 30px;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  margin-bottom: 30px;
 }
 .card-body {
-    padding: 20px;
+  padding: 20px;
 }
 .cta-btn {
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 /* Dashboard Specific */
 .slot-box {
-    width: 90px;
-    height: 90px;
-    border-radius: 10px;
-    margin: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1rem;
-    transition: transform 0.2s ease;
+  width: 90px;
+  height: 90px;
+  border-radius: 10px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease;
 }
 .slot-box:hover {
-    transform: scale(1.05);
+  transform: scale(1.05);
 }
 .slot-free {
-    background-color: #28a745;
+  background-color: #28a745;
 }
 .slot-occupied {
-    background-color: #dc3545;
+  background-color: #dc3545;
 }
 
 /* Team Page Specific Styles */
 .team-member {
-    margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 .team-member img {
-    width: 100%;
-    height: auto;
-    border-radius: 50%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  height: auto;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 .member-info h5 {
-    margin-top: 15px;
-    font-weight: 700;
+  margin-top: 15px;
+  font-weight: 700;
 }
 .member-info p {
-    color: #666;
+  color: #666;
 }
 
 /* Additional adjustments for the team page hero section (if needed) */
 .hero.team-hero {
-    background: url('/static/images/team_background.jpg') no-repeat center center;
-    background-size: cover;
-    padding: 100px 0;
+  background: url('/static/images/team_background.jpg') no-repeat center center;
+  background-size: cover;
+  padding: 100px 0;
 }
 
 /* Footer */
 .footer {
-    background-color: #343a40;
-    color: #ccc;
-    padding: 40px 0;
-    margin-top: 40px;
+  background-color: #343a40;
+  color: #ccc;
+  padding: 40px 0;
+  margin-top: 40px;
 }
 .footer a {
-    color: #ccc;
-    text-decoration: none;
+  color: #ccc;
+  text-decoration: none;
 }
 .footer a:hover {
-    color: #fff;
-    text-decoration: underline;
+  color: #fff;
+  text-decoration: underline;
 }
 .footer h5 {
-    color: #fff;
-    margin-bottom: 20px;
+  color: #fff;
+  margin-bottom: 20px;
 }
 .footer-bottom {
-    border-top: 1px solid #555;
-    padding-top: 20px;
-    font-size: 0.9rem;
+  border-top: 1px solid #555;
+  padding-top: 20px;
+  font-size: 0.9rem;
 }
 .justified-text {
-    text-align: justify;
+  text-align: justify;
 }
 
 /* Dark Mode Overrides */
 @media (prefers-color-scheme: dark) {
-  /* Global Dark Mode */
-  body {
-    background-color: #343a40;
-    color: #ccc;
-  }
+/* Global Dark Mode */
+body {
+  background-color: #343a40;
+  color: #ccc;
+}
 
-  /* Navigation */
-  .navbar, .footer {
-    background-color: #222;
-  }
-  .nav-link.active {
-    color: #fff !important;
-  }
+/* Navigation */
+.navbar {
+  background-color: #222 !important; /* Darker header background */
+}
+.navbar-brand .logo-light {
+  display: none; /* Hide light mode logo in dark mode */
+}
+.navbar-brand .logo-dark {
+  display: inline-block; /* Show dark mode logo in dark mode */
+}
+.nav-link {
+  color: #ccc !important;
+}
+.nav-link.active {
+  color: #fff !important;
+}
 
-  /* Hero Section */
-  .hero {
-    background: url('/static/images/smart_city_background.png') no-repeat center center;
-    background-size: cover;
-    background-attachment: scroll;
-    height: 500px;
-    position: relative;
-    color: #fff;
-    text-align: center;
-    margin-top: 50px;
-  }
-  .hero::before {
-    background: rgba(0, 0, 0, 0.7);
-  }
+/* Hero Section */
+.hero {
+  background: url('/static/images/smart_city_background.png') no-repeat center center;
+  background-size: cover;
+  background-attachment: scroll;
+  height: 500px;
+  position: relative;
+  color: #fff;
+  text-align: center;
+  margin-top: 50px;
+}
+.hero::before {
+  background: rgba(0, 0, 0, 0.3);
+}
 
-  /* Section Styling */
-  .section {
-    background-color: #444;
-    border-color: #555;
-  }
-  .section-title {
-    color: #fff;
-  }
+/* Section Styling */
+.section {
+  background-color: #444;
+  border-color: #555;
+}
+.section-title {
+  color: #fff;
+}
 
-  /* Cards */
-  .card {
-    background-color: #555;
-    color: #ccc;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
-  }
-  .card-body {
-    color: #ccc;
-  }
+/* Cards */
+.card {
+  background-color: #555;
+  color: #ccc;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+}
+.card-body {
+  color: #ccc;
+  text-align: justify;
+}
 
-  /* Dashboard Specific */
-  .slot-box {
-    color: #fff;
-  }
+/* Dashboard Specific */
+.slot-box {
+  color: #fff;
+}
 
-  /* Footer */
-  .footer {
-    background-color: #222;
-    color: #aaa;
-  }
-  .footer a {
-    color: #aaa;
-  }
-  .footer a:hover {
-    color: #fff;
-  }
-  .footer h5 {
-    color: #fff;
-  }
+/* Footer */
+.footer {
+  background-color: #222;
+  color: #aaa;
+}
+.footer a {
+  color: #aaa;
+}
+.footer a:hover {
+  color: #fff;
+}
+.footer h5 {
+  color: #fff;
+}
 }

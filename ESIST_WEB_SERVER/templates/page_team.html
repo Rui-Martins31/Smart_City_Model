@@ -11,24 +11,8 @@
 </head>
 <body>
 
-<!-- Navigation Bar -->
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
-  <a class="navbar-brand" href="/">
-    <img src="/static/images/feup_logo.png" alt="FEUP Logo">
-  </a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTeam" 
-          aria-controls="navbarTeam" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon">☰</span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarTeam">
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-      <li class="nav-item"><a class="nav-link" href="/dashboard">Dashboard</a></li>
-      <li class="nav-item"><a class="nav-link active" href="/team">Equipa</a></li>
-      <li class="nav-item"><a class="nav-link" href="/traffic">Tráfego</a></li>
-    </ul>
-  </div>
-</nav>
+<!-- Navigation -->
+{% include 'navigation.html' %}
 
 <!-- Hero Section -->
 <section class="hero">
@@ -100,21 +84,26 @@
       <!-- Team Member 4 -->
       <div class="col-md-4 team-member">
         <div class="card">
-          <img src="/static/images/member1.jpg" alt="Nome do Membro 4">
-          <div class="card-body member-info text-center">
-            <h5>Nome do Membro 4</h5>
-            <p>Função: Líder do Projeto</p>
-            <p>Breve descrição sobre a experiência e papel no projeto.</p>
+          <img src="/static/images/member1.jpg" alt="Tiago Miguel Vicente Pino">
+          <div class="card-body">
+            <h5><strong>Tiago Miguel Vicente Pino</strong></h5>
+            <p>Função: Designer e Projetista de Sistemas Analógicos e Digitais</p>
+            <p>Ao longo deste projeto tive a oportunidade de implementar sistemas de 
+              comunicação (MQTT), processamento de imagem e de controlo de dispositivos 
+              recorrendo a microcontroladores (Rasp/ESP).  Fui também responsável por 
+              implementar sistemas analógicos de interação com o utilizador, nomeadamente o 
+              sistema de sinalização luminosa de emergência. Para além disso desempenhei 
+              papeis de gestão e de agilização do projeto nas suas diferentes partes integrantes.</p>
           </div>
         </div>
       </div>
       <!-- Team Member 5 -->
       <div class="col-md-4 team-member">
         <div class="card">
-          <img src="/static/images/member2.jpg" alt="Nome do Membro 5">
-          <div class="card-body member-info text-center">
-            <h5>Nome do Membro 5</h5>
-            <p>Função: Desenvolvedor</p>
+          <img src="/static/images/member2.jpg" alt="Rui Filipe Castro Martins">
+          <div class="card-body">
+            <h5><strong>Rui Filipe Castro Martins</strong></h5>
+            <p>Função: Responsável pelo Departamento de Software</p>
             <p>Responsável por implementar as funcionalidades e integrações.</p>
           </div>
         </div>
