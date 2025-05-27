@@ -1,136 +1,219 @@
 #include <Arduino.h>
 #include <NeoPixelConnect.h>
 
-#define MAXIMUM_NUM_NEOPIXELS 5  // Número de LEDs; basta mudar aqui
-#define SENSOR_PIN1 15          // Pino único do sensor Grove (trigger e echo)
-#define SENSOR_PIN2 14
-#define LED_PIN 6
+#define NUM_LEDS_PER_ZONE 23
+#define NUM_ZONES 6
+#define TOTAL_LEDS 138
 
-// Inicializa a biblioteca NeoPixel (conforme o exemplo original)
-NeoPixelConnect strip(LED_PIN, MAXIMUM_NUM_NEOPIXELS, pio0, 0);
+#define SOUND_SPEED 0.0343 
+#define MIN_DETECT_DIST 3  // cm
+#define MAX_DETECT_DIST 6  // cm
+#define CLEAR_MIN_DIST 10  // cm
+#define CLEAR_MAX_DIST 15  // cm
 
-// Parâmetros para a animação dos LEDs
-const int fadeSteps = 100;
-const int fadeDelay = 10;
 
-// Parâmetros de distância (em centímetros)
-const int minDistance = 5;
-const int maxDistance = 9;
+int trigPins[NUM_ZONES] = {10, 11, 12, 13, 14, 25};
 
-// Timeout para controle (a ajustar conforme necessário)
-const unsigned long timeoutDuration = 15000; // tempo de timeout (não utilizado diretamente neste exemplo)
-unsigned long lastDetectionTime = 0;
 
-bool animating = false;
-unsigned long animationStartTime = 0;
+#define LED_PIN 0
 
-// Constante da velocidade do som (cm/µs)
-const float SOUND_SPEED = 0.0343;
+// 1 strip de 138 LEDs
+NeoPixelConnect strip(LED_PIN, TOTAL_LEDS, pio0, 0);
 
-void setup() {
-  // Configuração inicial do sensor e comunicação serial
+// flags de estado
+bool zoneOn[NUM_ZONES] = {false,false,false,false,false,false};
+
+////////////////////////////////////////////////////////////////////////////////
+
+bool isObjectDetected(int minD, int maxD, int pin)
+{
+  pinMode(pin, OUTPUT);
+  digitalWrite(pin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(pin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pin, LOW);
+
+  pinMode(pin, INPUT);
+  unsigned long pulse = pulseIn(pin, HIGH, 10000);
+  if (pulse == 0)
+    return false;
+  uint16_t dist = pulse * SOUND_SPEED / 2;
+  //Serial.print("Sensor ");
+  //Serial.print(pin);
+  //Serial.print(": ");
+  //Serial.print(dist);
+  //Serial.println(" cm");
+  return (dist > minD && dist <= maxD);
+}
+
+
+
+
+int isObjectDetected22(int min, int thresholdDistance) {
+  digitalWrite(3, LOW);
+  delayMicroseconds(2);
+  digitalWrite(3, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(3, LOW);
+
+  long duration = pulseIn(4, HIGH);
+
+  int distance = duration * 0.034 / 2;
+
+  if (distance > min && distance <= thresholdDistance) {
+    return 1;
+  } else {
+    return 0; 
+  }
+
+
+   Serial.print(distance);
+   Serial.println(" cm");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Liga ou desliga o bloco de LEDs [zone*23 .. zone*23+22]
+void setZone(int zone, bool on)
+{
+  int start = zone * NUM_LEDS_PER_ZONE;
+  int end = start + NUM_LEDS_PER_ZONE;
+  for (int i = start; i < end; i++)
+  {
+    if (on)
+    {
+      
+      strip.neoPixelSetValue(i, 255, 255, 255);
+    }
+    else
+    {
+      
+      strip.neoPixelSetValue(i, 0, 0, 0);
+    
+    }
+  }
+  strip.neoPixelShow();
+  // Serial.print("Zona ");
+  // Serial.print(zone);
+  // Serial.println(on ? " ligada" : " desligada");
+}
+
+////////////////////////////////////////////////////////////////////////////////
+/*
+void setup()
+{
+  Serial.begin(115200);
+  Serial.print("Serial initializing");
+  while(!Serial && millis()<=10000){
+    Serial.print(".");
+  }
+  Serial.print("Serial initialized!\n");
+  strip.neoPixelClear();
+  strip.neoPixelShow();
+}
+
+void loop()
+{
+  for (int i = 0; i < 5; i++)
+  {
+    while (!isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[i])){}
+    Serial.print("Obj near detected at sensor ");
+    Serial.print(i);
+    Serial.print("!\n");
+    while (!isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[i])){}
+    Serial.print("Obj far detected at sensor ");
+    Serial.print(i);
+    Serial.print("!\n");
+  }
+  
+}*/
+
+void setup()
+{
   Serial.begin(115200);
   strip.neoPixelClear();
   strip.neoPixelShow();
+  pinMode(4,INPUT);
+  pinMode(3,OUTPUT);
 }
 
-/**
- * Função que verifica se um objeto é detectado dentro do intervalo de distância especificado.
- * Utiliza o sensor Grove ultrassônico, que opera com um único pino.
- */
-bool isObjectDetected_1(int min, int thresholdDistance) {
-  // Configura o pino como saída para enviar o pulso trigger
-  pinMode(SENSOR_PIN1, OUTPUT);
-  digitalWrite(SENSOR_PIN1, LOW);
-  delayMicroseconds(2);
-  digitalWrite(SENSOR_PIN1, HIGH);
-  delayMicroseconds(10);  // Pulso de 10 µs
-  digitalWrite(SENSOR_PIN1, LOW);
+void loop()
+{
 
-  // Muda o pino para entrada e mede a duração do pulso HIGH (echo)
-  pinMode(SENSOR_PIN1, INPUT);
-  unsigned long pulseDuration = pulseIn(SENSOR_PIN1, HIGH, 30000); // Timeout de 30 ms
 
-  // Se não houver eco (timeout), retorna false
-  if (pulseDuration == 0) {
-    return false;
+  if (!zoneOn[0] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[0]))
+  {
+    zoneOn[0] = true;
+    setZone(0, true);
+  }
+  
+  if (zoneOn[0] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[1]))
+  {
+    zoneOn[0] = false;
+    setZone(0, false);
   }
 
-  // Calcula a distância: (duração do pulso * velocidade do som) / 2
-  int distance = pulseDuration * SOUND_SPEED / 2;
+  // zona 0
 
-  // Para debug: imprime a distância medida no Serial Monitor
-  Serial.print("Distancia: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-
-  // Retorna verdadeiro se a distância estiver dentro do intervalo (maior que min e menor ou igual a thresholdDistance)
-  return (distance > min && distance <= thresholdDistance);
-}
-bool isObjectDetected_2(int min, int thresholdDistance) {
-  // Configura o pino como saída para enviar o pulso trigger
-  pinMode(SENSOR_PIN2, OUTPUT);
-  digitalWrite(SENSOR_PIN2, LOW);
-  delayMicroseconds(2);
-  digitalWrite(SENSOR_PIN2, HIGH);
-  delayMicroseconds(10);  // Pulso de 10 µs
-  digitalWrite(SENSOR_PIN2, LOW);
-
-  // Muda o pino para entrada e mede a duração do pulso HIGH (echo)
-  pinMode(SENSOR_PIN2, INPUT);
-  unsigned long pulseDuration = pulseIn(SENSOR_PIN2, HIGH, 30000); // Timeout de 30 ms
-
-  // Se não houver eco (timeout), retorna false
-  if (pulseDuration == 0) {
-    return false;
+  if (!zoneOn[1] &&  isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[1]))
+  {
+    zoneOn[1] = true;
+    setZone(1, true);
   }
 
-  // Calcula a distância: (duração do pulso * velocidade do som) / 2
-  int distance = pulseDuration * SOUND_SPEED / 2;
-
-  // Para debug: imprime a distância medida no Serial Monitor
-  Serial.print("Distancia: ");
-  Serial.print(distance);
-  Serial.println(" cm");
-
-  // Retorna verdadeiro se a distância estiver dentro do intervalo (maior que min e menor ou igual a thresholdDistance)
-  return (distance > min && distance <= thresholdDistance);
-}
-/**
- * Função que acende os LEDs sequencialmente com um efeito de fade-in.
- */
-void fadeInAllLEDsSequentially() {
-  for (int pos = 0; pos < MAXIMUM_NUM_NEOPIXELS; pos++) {
-    for (int step = 0; step <= fadeSteps; step++) {
-      int brightness = map(step, 0, fadeSteps, 0, 255);
-      // Define a mesma intensidade para os três canais (branco)
-      strip.neoPixelSetValue(pos, brightness, brightness, brightness);
-      strip.neoPixelShow();
-      delay(fadeDelay);
-    }
-  }
-}
-
-/**
- * Função para resetar os LEDs e finalizar a animação.
- */
-void resetLEDs() {
-  strip.neoPixelClear();
-  strip.neoPixelShow();
-  animating = false;
-  Serial.println("Timed out - LEDs reset.");
-}
-
-void loop() {
-  // Se não estiver em animação e um objeto for detectado no intervalo definido
-  if (!animating && isObjectDetected_1(minDistance, maxDistance)) {
-    animating = true;
-    fadeInAllLEDsSequentially();
+  if (zoneOn[1] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[0]))
+  {
+    zoneOn[1] = false;
+    setZone(1, false);
   }
 
-  // Caso esteja em animação e um objeto seja detectado num intervalo diferente (exemplo: outro sensor ou condição),
-  // o que no exemplo original está definido para usar um intervalo de 15 a 20 cm:
-  if (animating && isObjectDetected_2(15, 20)) {
-    resetLEDs();
+  if (!zoneOn[2] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[2]))
+  {
+    zoneOn[2] = true;
+    setZone(2, true);
   }
+
+  if (zoneOn[2] && isObjectDetected22(CLEAR_MIN_DIST, CLEAR_MAX_DIST) )
+  {
+    zoneOn[2] = false;
+    setZone(2, false);
+  }
+
+  if (!zoneOn[5] && isObjectDetected22(MIN_DETECT_DIST, MAX_DETECT_DIST))
+  {
+    zoneOn[5] = true;
+    setZone(5, true);
+  }
+  
+  if (zoneOn[5] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[2]))
+  {
+    zoneOn[5] = false;
+    setZone(5, false);
+  }
+
+  if (!zoneOn[3] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[3]))
+  {
+    zoneOn[3] = true;
+    setZone(3, true);
+  }
+  
+  if (zoneOn[3] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[4]))
+  {
+    zoneOn[3] = false;
+    setZone(3, false);
+  }
+
+  if (!zoneOn[4] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[4]))
+  {
+    zoneOn[4] = true;
+    setZone(4, true);
+  }
+  
+  if (zoneOn[4] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[3]))
+  {
+    zoneOn[4] = false;
+    setZone(4, false);
+  }
+
+  delay(5);
 }
