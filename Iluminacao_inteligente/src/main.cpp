@@ -6,10 +6,10 @@
 #define TOTAL_LEDS 138
 
 #define SOUND_SPEED 0.0343 
-#define MIN_DETECT_DIST 3  // cm
-#define MAX_DETECT_DIST 6  // cm
-#define CLEAR_MIN_DIST 10  // cm
-#define CLEAR_MAX_DIST 15  // cm
+#define MIN_DETECT_DIST 2.0  // cm
+#define MAX_DETECT_DIST 4.0  // cm
+#define CLEAR_MIN_DIST 7.0  // cm
+#define CLEAR_MAX_DIST 10.0  // cm
 
 
 int trigPins[NUM_ZONES] = {10, 11, 12, 13, 14, 25};
@@ -25,7 +25,7 @@ bool zoneOn[NUM_ZONES] = {false,false,false,false,false,false};
 
 ////////////////////////////////////////////////////////////////////////////////
 
-bool isObjectDetected(int minD, int maxD, int pin)
+bool isObjectDetected(float minD, float maxD, int pin)
 {
   pinMode(pin, OUTPUT);
   digitalWrite(pin, LOW);
@@ -38,19 +38,28 @@ bool isObjectDetected(int minD, int maxD, int pin)
   unsigned long pulse = pulseIn(pin, HIGH, 10000);
   if (pulse == 0)
     return false;
-  uint16_t dist = pulse * SOUND_SPEED / 2;
+  float dist = pulse * SOUND_SPEED / 2;
   //Serial.print("Sensor ");
   //Serial.print(pin);
   //Serial.print(": ");
   //Serial.print(dist);
   //Serial.println(" cm");
-  return (dist > minD && dist <= maxD);
+  if (pin == trigPins[3] && zoneOn[4])
+  {
+    Serial.print(dist > minD && dist <= maxD);
+  }
+  
+  if (dist > minD && dist <= maxD) {
+    return 1;
+  } else {
+    return 0; 
+  }
 }
 
 
 
 
-int isObjectDetected22(int min, int thresholdDistance) {
+int isObjectDetected22(float min, float thresholdDistance) {
   digitalWrite(3, LOW);
   delayMicroseconds(2);
   digitalWrite(3, HIGH);
@@ -59,7 +68,7 @@ int isObjectDetected22(int min, int thresholdDistance) {
 
   long duration = pulseIn(4, HIGH);
 
-  int distance = duration * 0.034 / 2;
+  float distance = duration * 0.034 / 2;
 
   if (distance > min && distance <= thresholdDistance) {
     return 1;
@@ -84,18 +93,20 @@ void setZone(int zone, bool on)
     {
       
       strip.neoPixelSetValue(i, 255, 255, 255);
+      
     }
-    else
+    else if (!on)
     {
       
       strip.neoPixelSetValue(i, 0, 0, 0);
+       
     
     }
   }
   strip.neoPixelShow();
-  // Serial.print("Zona ");
-  // Serial.print(zone);
-  // Serial.println(on ? " ligada" : " desligada");
+  Serial.print("Zona ");
+  Serial.print(zone);
+  Serial.println(on ? " ligada" : " desligada");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -141,13 +152,13 @@ void loop()
 {
 
 
-  if (!zoneOn[0] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[0]))
+  if (!zoneOn[0] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, 10))
   {
     zoneOn[0] = true;
     setZone(0, true);
   }
   
-  if (zoneOn[0] && isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[1]))
+  if (zoneOn[0] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, 11))
   {
     zoneOn[0] = false;
     setZone(0, false);
@@ -155,13 +166,15 @@ void loop()
 
   // zona 0
 
-  if (!zoneOn[1] &&  isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, trigPins[1]))
+  if (!zoneOn[1] &&  isObjectDetected(MIN_DETECT_DIST, MAX_DETECT_DIST, 11))
   {
     zoneOn[1] = true;
     setZone(1, true);
   }
+  Serial.print("Zone 1 state: ");
+  Serial.println(zoneOn[1]);
 
-  if (zoneOn[1] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[0]))
+  if (zoneOn[1] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, 10))
   {
     zoneOn[1] = false;
     setZone(1, false);
@@ -184,6 +197,8 @@ void loop()
     zoneOn[5] = true;
     setZone(5, true);
   }
+  Serial.print("Zone 5 state: ");
+  Serial.println(zoneOn[5]);
   
   if (zoneOn[5] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[2]))
   {
@@ -208,12 +223,15 @@ void loop()
     zoneOn[4] = true;
     setZone(4, true);
   }
+  Serial.print("Zone 4 state: ");
+  Serial.println(zoneOn[4]);
   
-  if (zoneOn[4] && isObjectDetected(CLEAR_MIN_DIST, CLEAR_MAX_DIST, trigPins[3]))
+  if (zoneOn[4] && isObjectDetected(CLEAR_MIN_DIST+0.5, CLEAR_MAX_DIST+0.5, trigPins[3]))
   {
+    Serial.print("Detecting far ");
     zoneOn[4] = false;
     setZone(4, false);
   }
 
-  delay(5);
+  delay(25);
 }
