@@ -4,5 +4,9 @@ ENV/
 env/
 .venv
 
+
 # Configuration files
 config.h
+
+# Folders
+ESIST_WEB_SERVER/static/images

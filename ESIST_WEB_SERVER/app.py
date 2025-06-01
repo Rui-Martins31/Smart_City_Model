@@ -21,22 +21,22 @@ def parking_data():
 # --- MAIN PAGE: Project Description ---
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('index.html', current_page = 'home')
 
 # --- DASHBOARD PAGE: Visualization, metrics, etc. ---
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', current_page = 'dashboard')
 
 # --- TEAM PAGE: Team and members ---
 @app.route('/team')
 def page_team():
-    return render_template('page_team.html')
+    return render_template('page_team.html', current_page = 'team')
 
 # --- TRAFFIC PAGE: Traffic metrics ---
 @app.route('/traffic')
 def page_traffic():
-    return render_template('page_traffic.html')
+    return render_template('page_traffic.html', current_page = 'traffic')
 
 if __name__ == '__main__':
     # For development on your PC, you can keep '127.0.0.1'.
