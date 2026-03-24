@@ -1,0 +1,7 @@
+Pessoal. Passei imenso tempo a tentar por a WiFi e o MQTT a dar.
+Neste código a wifi funciona e o MQTT também devia, mas como não 
+consegui que a biblioteca "umqtt.simple" fosse reconhecida não consegui verificar.
+
+Neste código traduzi o funcionamento dos semáforos e funciona.
+
+Por favor, se alguem conseguir por esta biblioteca a funcionar seria bom.
